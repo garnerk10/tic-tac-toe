@@ -10,4 +10,8 @@
 
 .cell {
     background-color: red;
+    width: 100px;
+    height: 100px;
+    justify-self: center;
+    align-self: center;
 }

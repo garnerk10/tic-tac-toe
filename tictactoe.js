@@ -1,63 +1,42 @@
-const gameBoard = (() => {
-    //board layout
-    let rows = 3;
-    let columns = 3;
-    let board = [];
+const board = [];
+let activePlayers = ["player1", "player2"];
+let playerTurn = activePlayers[0];
 
-    //fill board array with cells
-    for(let i = 0; i < rows; i++){
-        for(let j = 0; j < columns; j++){
-            board.push(cell())
-        }
-    };
+const gameboardDiv = document.getElementById("gameboard");
 
-    //generate board on DOM
-    const generateBoard = () => {
-        for(let i = 0; i < board.length; i++){
-        const boardDiv = document.getElementById("gameboard");
-        const newCell = document.createElement("div")
+const makeBoard = () => {
+    for(let i = 0; i < 9; i++){
+        let newCell = document.createElement("div");
         newCell.setAttribute("class", "cell");
-        boardDiv.appendChild(newCell)
-        }
+        newCell.setAttribute("id", `${i}`);
+        gameboardDiv.appendChild(newCell);
+        board.push(makeCell(i));
+        newCell.addEventListener("click", makeMove)
     };
-
-    const getBoard = () => board;
-
-    return{board, getBoard, generateBoard}
-})();
-
-
-//create cells
-const cell = () => {
-    let value = 0;
-
-    //only mark the cell with player value if cell is empty
-    const  markCell = player => {
-        if(value === 0){
-            value = playerTurn.number;
-        }
-    };
-
-    const getValue = () => value;
-
-    return {markCell, getValue};
 };
 
-
-const gameFlow = (() => {
-    
-    const firstPlayer = makePlayer("Player 1", 1);
-    const secondPlayer = makePlayer("Player 2", 2);
-
-    let activePlayers = [firstPlayer, secondPlayer]
-
-    let playerTurn = activePlayers[0];
-
-    const changeTurn = playerTurn === activePlayers[0] ? activePlayers[1] : activePlayers[0];
-    return{firstPlayer, secondPlayer, activePlayers, playerTurn}
-})();
-
-const makePlayer = (name, number) => {
-    return {name, number}
+const makeCell = (cellNumber) => {
+    let value = "empty";
+    return {value, cellNumber}
 };
-gameBoard.generateBoard();
+
+const makeMove = (e) => {
+    const cellId = e.target.id;
+    const arrId = board[cellId];
+
+    //check if the cell is empty or the same player's cell
+    if(arrId.value === "empty" || arrId.value === playerTurn){
+        //fill array value with the player value
+        arrId.value = playerTurn;
+
+        //display player value on board
+        e.target.innerText = `${playerTurn}`;
+
+        //change player turn
+        if(playerTurn === activePlayers[0]){
+            playerTurn = activePlayers[1]
+        } else {playerTurn = activePlayers[0]}
+    } else {alert("Invalid move!")}
+}
+
+window.addEventListener("load", makeBoard());

@@ -1,4 +1,4 @@
-const board = [];
+let board = [];
 let activePlayers = ["player1", "player2"];
 let playerTurn = activePlayers[0];
 
@@ -32,11 +32,41 @@ const makeMove = (e) => {
         //display player value on board
         e.target.innerText = `${playerTurn}`;
 
+        //check for winner before changing turns
+        checkForWin();
+
         //change player turn
         if(playerTurn === activePlayers[0]){
             playerTurn = activePlayers[1]
-        } else {playerTurn = activePlayers[0]}
-    } else {alert("Invalid move!")}
-}
+        } else {playerTurn = activePlayers[0]};
+
+    } else {alert("Invalid move!")};
+};
+
+const checkForWin = () => {
+    if((board[0].value === board[1].value && board[0].value === board[2].value && board[0].value !== "empty") || 
+    (board[3].value === board[4].value && board[3].value === board[5].value && board[3].value !== "empty") || 
+    (board[6].value === board[7].value && board[6].value === board[8].value && board[6].value !== "empty") || 
+    (board[0].value === board[3].value && board[0].value === board[6].value && board[0].value !== "empty") || 
+    (board[1].value === board[4].value && board[1].value === board[7].value && board[1].value !== "empty") || 
+    (board[2].value === board[5].value && board[2].value === board[8].value && board[2].value !== "empty") || 
+    (board[0].value === board[4].value && board[0].value === board[8].value && board[0].value !== "empty") || 
+    (board[2].value === board[4].value && board[2].value === board[6].value && board[2].value !== "empty")
+    ){alert(`${playerTurn} wins!`);
+    clearBoard();
+    }
+};
+
+//clear the board
+const clearBoard = () => {
+    board.forEach(cell => {
+        cell.value = "empty"
+    });
+
+    const divList = document.getElementsByClassName("cell");
+    for(let i = 0; i < divList.length; i++){
+        divList[i].innerText = "";
+    }
+};
 
 window.addEventListener("load", makeBoard());

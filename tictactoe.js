@@ -1,5 +1,5 @@
 let board = [];
-let activePlayers = ["player1", "player2"];
+let activePlayers = [];
 let playerTurn = activePlayers[0];
 
 const gameboardDiv = document.getElementById("gameboard");
@@ -25,12 +25,12 @@ const makeMove = (e) => {
     const arrId = board[cellId];
 
     //check if the cell is empty or the same player's cell
-    if(arrId.value === "empty" || arrId.value === playerTurn){
+    if(arrId.value === "empty" || arrId.value === playerTurn.symbol){
         //fill array value with the player value
-        arrId.value = playerTurn;
+        arrId.value = playerTurn.symbol;
 
         //display player value on board
-        e.target.innerText = `${playerTurn}`;
+        e.target.innerText = `${playerTurn.symbol}`;
 
         //check for winner before changing turns
         checkForWin();
@@ -43,6 +43,7 @@ const makeMove = (e) => {
     } else {alert("Invalid move!")};
 };
 
+//win conditions
 const checkForWin = () => {
     if((board[0].value === board[1].value && board[0].value === board[2].value && board[0].value !== "empty") || 
     (board[3].value === board[4].value && board[3].value === board[5].value && board[3].value !== "empty") || 
@@ -52,7 +53,7 @@ const checkForWin = () => {
     (board[2].value === board[5].value && board[2].value === board[8].value && board[2].value !== "empty") || 
     (board[0].value === board[4].value && board[0].value === board[8].value && board[0].value !== "empty") || 
     (board[2].value === board[4].value && board[2].value === board[6].value && board[2].value !== "empty")
-    ){alert(`${playerTurn} wins!`);
+    ){alert(`${playerTurn.name} wins!`);
     clearBoard();
     }
 };
@@ -67,6 +68,23 @@ const clearBoard = () => {
     for(let i = 0; i < divList.length; i++){
         divList[i].innerText = "";
     }
+};
+
+const makePlayer = (name, symbol) => {
+    return {name, symbol}
+};
+
+const setupGame = () => {
+    const playerOneName = document.getElementById("player1").value;
+    const playerTwoName = document.getElementById("player2").value;
+
+    activePlayers.push(makePlayer(playerOneName, "X"), makePlayer(playerTwoName, "O"));
+
+    console.log(activePlayers);
+
+    gameboardDiv.style.display = "grid";
+    document.getElementById("playerForm").style.display = "none";
+    playerTurn = activePlayers[0];
 };
 
 window.addEventListener("load", makeBoard());

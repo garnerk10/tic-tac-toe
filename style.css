@@ -1,5 +1,5 @@
 #gameboard {
-    display: grid;
+    display: none;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     width: 500px;

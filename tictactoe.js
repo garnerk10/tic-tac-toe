@@ -101,7 +101,15 @@ const gameFlow = (() =>{
             //change then round display
             round++;
             roundCounter.innerText = `Round ${round}`;
+            turnCounter = 0;
 
+        }
+        else if(turnCounter === 9){
+            alert("It's a draw!");
+            gameboard.clearBoard();
+            round++;
+            roundCounter.innerText = `Round ${round}`;
+            turnCounter = 0;
         }
     };
 

@@ -1,3 +1,13 @@
+body {
+    background-color: cornflowerblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+}
+
 #gameboard {
     display: none;
     grid-template-columns: repeat(3, 1fr);
@@ -15,3 +25,58 @@
     justify-self: center;
     align-self: center;
 }
+
+/*Initial popup to receive player ingo*/
+#playerForm {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 30%;
+    background-color: grey;
+    height: 200px;
+    width: 500px;
+    justify-content: space-around;
+}
+
+.nameInput {
+    display: flex;
+    justify-content: space-around;
+}
+
+.nameInput input {
+    height: 30px;
+}
+
+#playButton {
+    width: 200px;
+    align-self: center;
+    height: 30px;
+}
+
+/*information bar under title*/
+#info {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 80%;
+}
+
+.playerCard {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+}
+
+#round {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 200px;
+    height: 75px;
+    text-align: center;
+}
+

@@ -14,21 +14,24 @@
     </div>
 
     <div id="playerForm">
-        <input type="text" id="player1" name="player1" placeholder="Player 1">
+        <div class="nameInput">
+            <input type="text" id="player1" name="player1" placeholder="Player 1" maxlength="15">
 
-        <input type="text" id="player2" name="player2" placeholder="Player 2">
+            <input type="text" id="player2" name="player2" placeholder="Player 2" maxlength="15">
+        </div>
 
         <button id="playButton" onclick="gameFlow.setupGame()">Let's Play!</button>
     </div>
 
-    <div class="info">
-        <h2 id="round">Round: 1</h2>
-        <div id="OneDisplay">
+    <div id="info">
+        <div class="playerCard" id="OneDisplay">
             <h3 id="p1name">Player 1</h3>
             <h4 id="OneWins">0</h4>
         </div>
 
-        <div class="TwoDisplay">
+        <h2 id="round">Round: 1</h2>
+
+        <div class="playerCard" id="TwoDisplay">
             <h3 id="p2name">Player 2</h3>
             <h4 id="TwoWins">0</h4>
         </div>

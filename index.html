@@ -18,13 +18,20 @@
 
         <input type="text" id="player2" name="player2" placeholder="Player 2">
 
-        <button id="playButton" onclick="setupGame()">Let's Play!</button>
+        <button id="playButton" onclick="gameFlow.setupGame()">Let's Play!</button>
     </div>
 
     <div class="info">
-        <h2>Round: </h2>
-        <h3>Player 1</h3>
-        <h3>Player 2</h3>
+        <h2 id="round">Round: 1</h2>
+        <div id="OneDisplay">
+            <h3 id="p1name">Player 1</h3>
+            <h4 id="OneWins">0</h4>
+        </div>
+
+        <div class="TwoDisplay">
+            <h3 id="p2name">Player 2</h3>
+            <h4 id="TwoWins">0</h4>
+        </div>
     </div>
 
     <div class="gameboard" id="gameboard">

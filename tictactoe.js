@@ -21,21 +21,6 @@ const gameboard = (() => {
         };
     };
 
-    //win conditions
-    const checkForWin = () => {
-        if((board[0].value === board[1].value && board[0].value === board[2].value && board[0].value !== "empty") || 
-        (board[3].value === board[4].value && board[3].value === board[5].value && board[3].value !== "empty") || 
-        (board[6].value === board[7].value && board[6].value === board[8].value && board[6].value !== "empty") || 
-        (board[0].value === board[3].value && board[0].value === board[6].value && board[0].value !== "empty") || 
-        (board[1].value === board[4].value && board[1].value === board[7].value && board[1].value !== "empty") || 
-        (board[2].value === board[5].value && board[2].value === board[8].value && board[2].value !== "empty") || 
-        (board[0].value === board[4].value && board[0].value === board[8].value && board[0].value !== "empty") || 
-        (board[2].value === board[4].value && board[2].value === board[6].value && board[2].value !== "empty")
-        ){alert(`${gameFlow.playerTurn.name} wins!`);
-        clearBoard();
-        }
-    };
-
     //clear the board
     const clearBoard = () => {
         board.forEach(cell => {
@@ -48,7 +33,7 @@ const gameboard = (() => {
         }
     };
 
-    return{makeBoard, board, checkForWin, clearBoard};
+    return{makeBoard, board, clearBoard};
 })();
 
 
@@ -61,30 +46,63 @@ const makeCell = (cellNumber) => {
 //gameflow module
 const gameFlow = (() =>{
 
+    let turnCounter = 0;
+    let round = 1;
+    let board = gameboard.board;
     let activePlayers = [];
-    let playerTurn = activePlayers[0];
+    let playerTurn = 0;
 
     const makeMove = (e) => {
         const cellId = e.target.id;
         const arrId = gameboard.board[cellId];
 
         //check if the cell is empty or the same player's cell
-        if(arrId.value === "empty" || arrId.value === playerTurn.symbol){
+        if(arrId.value === "empty" || arrId.value === activePlayers[playerTurn].symbol){
+
+            turnCounter++
+
             //fill array value with the player value
-            arrId.value = playerTurn.symbol;
+            arrId.value = activePlayers[playerTurn].symbol;
 
             //display player value on board
-            e.target.innerText = `${playerTurn.symbol}`;
+            e.target.innerText = `${activePlayers[playerTurn].symbol}`;
 
             //check for winner before changing turns
-            gameboard.checkForWin();
+            checkForWin();
 
             //change player turn
-            if(playerTurn === activePlayers[0]){
-                playerTurn = activePlayers[1]
-            } else {playerTurn = activePlayers[0]};
+            if(playerTurn === 0){
+                playerTurn = 1
+            } else {playerTurn = 0};
 
         } else {alert("Invalid move!")};
+    };
+
+    //win conditions
+    const checkForWin = () => {
+        if((board[0].value === board[1].value && board[0].value === board[2].value && board[0].value !== "empty") || 
+        (board[3].value === board[4].value && board[3].value === board[5].value && board[3].value !== "empty") || 
+        (board[6].value === board[7].value && board[6].value === board[8].value && board[6].value !== "empty") || 
+        (board[0].value === board[3].value && board[0].value === board[6].value && board[0].value !== "empty") || 
+        (board[1].value === board[4].value && board[1].value === board[7].value && board[1].value !== "empty") || 
+        (board[2].value === board[5].value && board[2].value === board[8].value && board[2].value !== "empty") || 
+        (board[0].value === board[4].value && board[0].value === board[8].value && board[0].value !== "empty") || 
+        (board[2].value === board[4].value && board[2].value === board[6].value && board[2].value !== "empty")
+        ){
+            alert(`${activePlayers[playerTurn].name} wins!`);
+            gameboard.clearBoard();
+
+            activePlayers[playerTurn].wins++;
+
+            //display wins
+            p1Wins.innerText = `${activePlayers[0].wins}`;
+            p2Wins.innerText = `${activePlayers[1].wins}`;
+
+            //change then round display
+            round++;
+            roundCounter.innerText = `Round ${round}`;
+
+        }
     };
 
     const setupGame = () => {
@@ -99,10 +117,10 @@ const gameFlow = (() =>{
         //hide player input and show gameboard
         gameboardDiv.style.display = "grid";
         document.getElementById("playerForm").style.display = "none";
-        playerTurn = activePlayers[0];
+        playerTurn = 0;
     };
 
-    return{activePlayers, playerTurn, makeMove, setupGame}
+    return{activePlayers, playerTurn, makeMove, setupGame, checkForWin}
 })();
 
 const makePlayer = (name, symbol) => {

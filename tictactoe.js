@@ -1,5 +1,6 @@
 const gameboardDiv = document.getElementById("gameboard");
 const roundCounter = document.getElementById("round");
+const turnDisplay = document.getElementById("playerTurn");
 const p1Name = document.getElementById("p1name");
 const p2Name = document.getElementById("p2name");
 const p1Wins = document.getElementById("OneWins");
@@ -65,15 +66,23 @@ const gameFlow = (() =>{
             arrId.value = activePlayers[playerTurn].symbol;
 
             //display player value on board
-            e.target.innerText = `${activePlayers[playerTurn].symbol}`;
+            //e.target.innerText = `${activePlayers[playerTurn].symbol}`;
+            const newCellP = document.createElement("p");
+            newCellP.setAttribute("class", "cellText");
+            newCellP.innerText = `${activePlayers[playerTurn].symbol}`;
+            e.target.appendChild(newCellP);
 
             //check for winner before changing turns
             checkForWin();
 
             //change player turn
             if(playerTurn === 0){
-                playerTurn = 1
-            } else {playerTurn = 0};
+                playerTurn = 1;
+                turnDisplay.innerText = `Turn: ${activePlayers[1].name}`
+            } else {
+                playerTurn = 0;
+                turnDisplay.innerText = `Turn: ${activePlayers[0].name}`
+            };
 
         } else {alert("Invalid move!")};
     };
@@ -126,6 +135,7 @@ const gameFlow = (() =>{
         gameboardDiv.style.display = "grid";
         document.getElementById("playerForm").style.display = "none";
         playerTurn = 0;
+        turnDisplay.innerText = `Turn: ${activePlayers[playerTurn].name}`
     };
 
     return{activePlayers, playerTurn, makeMove, setupGame, checkForWin}

@@ -1,5 +1,5 @@
 body {
-    background-color: cornflowerblue;
+    background-color: rgb(100, 149, 237);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,34 +8,96 @@ body {
     margin: 0;
 }
 
+/*header for title and scoreboard supports*/
+.header {
+    display: flex;
+    justify-content: center;
+}
+
+h1 {
+    font-family: "Chivo Mono", sans-serif;
+    font-size: 50px;
+}
+
+.support {
+    width: 10px;
+    background-color: rgb(174, 174, 174);
+    box-shadow: 2px 2px 5px black;
+}
+
+#support1 {
+    margin-right: 20px;
+}
+
+#support2 {
+    margin-left: 20px;
+}
+
+/*Gameboard and cells*/
+#border {
+    background-color: black;
+    margin-top: 20px;
+}
+
 #gameboard {
     display: none;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(auto, auto));
+    grid-template-rows: repeat(3, minmax(auto, auto));
     width: 500px;
     height: 500px;
-    gap: 5px;
-    background-color: chartreuse;
+    gap: 25px;
 }
 
 .cell {
-    background-color: red;
-    width: 100px;
-    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(100, 149, 237);
+    width: 150px;
+    height: 150px;
     justify-self: center;
     align-self: center;
+    font-size: 150px;
+    font-family: Dongle, sans-serif;
+    font-weight: 900;
+}
+
+.cellText {
+    padding-top: 20px;
+}
+
+.cell:hover {
+    cursor: pointer;
+    box-shadow: inset 0 0 10px 10px rgb(100, 149, 237);
+    background-color: rgb(47 108 218);
 }
 
 /*Initial popup to receive player ingo*/
 #playerForm {
     display: flex;
+    /*display: none;*/
     flex-direction: column;
     position: absolute;
     top: 30%;
-    background-color: grey;
-    height: 200px;
+    background-color: rgb(174, 174, 174);
+    height: 250px;
     width: 500px;
     justify-content: space-around;
+    border-radius: 20px;
+    border: 5px solid rgb(154, 205, 50);
+    box-shadow: 5px 5px 5px black;
+}
+
+.playerForm {
+    font-family: "Chivo Mono", sans-serif;
+}
+
+.playerForm h2 {
+    text-align: center;
+    font-size: 30px;
+    color: rgb(154, 205, 50);
+    background-color: black;
+    padding: 5px 0px;
 }
 
 .nameInput {
@@ -45,20 +107,38 @@ body {
 
 .nameInput input {
     height: 30px;
+    font-family: "Chivo Mono", sans-serif;
 }
 
 #playButton {
+    margin-top: 10px;
     width: 200px;
     align-self: center;
-    height: 30px;
+    height: 50px;
+    font-family: "Chivo Mono";
+    background-color: black;
+    color: rgb(154, 205, 50);
+    font-weight: 900;
+    font-size: 25px;
+    border-radius: 20px;
+    border: 3px solid rgb(154, 205, 50);
 }
 
-/*information bar under title*/
+#playButton:hover {
+    background-color: white;
+    cursor: pointer;
+}
+
+/*Scoreboard*/
 #info {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    width: 80%;
+    width: 600px;
+    font-family: "Chivo Mono", sans-serif;
+    background-color: black;
+    border: 5px solid rgb(174, 174, 174);
+    box-shadow: 5px 5px 5px 2px black;
 }
 
 .playerCard {
@@ -68,6 +148,27 @@ body {
     justify-content: center;
     align-items: center;
     width: 150px;
+    border: 5px solid rgb(154, 205, 50);
+    font-size: 20px;
+}
+
+.playerCard h4 {
+    background-color: black;
+    width: 100px;
+    height: 80px;
+    color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    margin: 5px 0;
+}
+
+.playerCard h3 {
+    width: 100%;
+    background-color: black;
+    color: red;
+    text-align: center;
 }
 
 #round {
@@ -78,5 +179,18 @@ body {
     width: 200px;
     height: 75px;
     text-align: center;
+    border: 5px solid rgb(154, 205, 50);
+    color: red;
+    font-size: 30px;
+}
+
+#playerTurn {
+    color: red;
+    text-align: left;
+}
+
+#infoHolder {
+    display: flex;
+    flex-direction: column;
 }
 

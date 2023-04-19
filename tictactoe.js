@@ -99,7 +99,7 @@ const gameFlow = (() =>{
         (board[2].value === board[4].value && board[2].value === board[6].value && board[2].value !== "empty")
         ){
             alert(`${activePlayers[playerTurn].name} wins!`);
-            gameboard.clearBoard();
+            nextRound();
 
             activePlayers[playerTurn].wins++;
 
@@ -107,18 +107,10 @@ const gameFlow = (() =>{
             p1Wins.innerText = `${activePlayers[0].wins}`;
             p2Wins.innerText = `${activePlayers[1].wins}`;
 
-            //change then round display
-            round++;
-            roundCounter.innerText = `Round ${round}`;
-            turnCounter = 0;
-
         }
         else if(turnCounter === 9){
             alert("It's a draw!");
-            gameboard.clearBoard();
-            round++;
-            roundCounter.innerText = `Round ${round}`;
-            turnCounter = 0;
+            nextRound();
         }
     };
 
@@ -138,12 +130,20 @@ const gameFlow = (() =>{
         turnDisplay.innerText = `Turn: ${activePlayers[playerTurn].name}`
     };
 
-    return{activePlayers, playerTurn, makeMove, setupGame, checkForWin}
+    const nextRound = () => {
+        gameboard.clearBoard();
+        round++;
+        roundCounter.innerText = `Round ${round}`;
+        turnCounter = 0;
+    }
+
+    return{activePlayers, playerTurn, makeMove, setupGame, checkForWin, nextRound}
 })();
 
 const makePlayer = (name, symbol) => {
     let wins = 0;
     return {name, symbol, wins}
 };
+
 
 window.addEventListener("load", gameboard.makeBoard);

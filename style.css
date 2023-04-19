@@ -32,6 +32,29 @@ h1 {
 #support2 {
     margin-left: 20px;
 }
+/*Play area*/
+#playArea {
+    display: flex;
+    margin-left: 225px;
+}
+
+#nextRoundBtn {
+    height: 100px;
+    align-self: center;
+    font-family: "Chivo Mono", sans;
+    margin-left: 20px;
+    background-color: white;
+    color: red;
+    border: 5px solid rgb(154, 205, 50);
+    width: 200px;
+    font-size: 25px;
+    font-weight: 900;
+}
+
+#nextRoundBtn:hover {
+    background-color: black;
+    cursor: pointer;
+}
 
 /*Gameboard and cells*/
 #border {
